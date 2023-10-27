@@ -1,28 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Entities;
+using Unity;
 using UnityEngine;
+using System;
 
-public class Asteroid : MonoBehaviour
+public struct Asteroid : IComponentData
 {
-    public int AsteroidSize;
-    public int AsteroidSpeed;
-    public int AsteroidHealth;
-    public int AsteroidMaxHealth;
-    
-    public enum AsteroidType
-    {
-        Normal,
-        Breakable,
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Entity AsteroidObject;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int AsteroidHealth;
+    public int AsteroidSpeed;
+    public int AsteroidSize;
+    public int AsteroidLifeTime;
+
+    public int TotalNumberOfAsteroids;
 }
