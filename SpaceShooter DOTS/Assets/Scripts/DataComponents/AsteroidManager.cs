@@ -5,24 +5,16 @@ using Unity.Entities;
 using Unity.Mathematics;
 using System;
 using UnityEditor.Build.Pipeline.Interfaces;
+using Unity.Transforms;
+using Unity.Entities.UniversalDelegates;
 
 namespace SpaceShooter.DOTS
 {
-    //public struct Asteroid : IComponentData
-    //{
-    //    move this to seperate script?
-    //    public Entity AsteroidObject;
-
-    //    public int AsteroidHealth;
-    //    public int AsteroidSpeed;
-    //    public int AsteroidSize;
-    //    public int AsteroidLifeTime;
-    //}
-
     public class AsteroidManager : MonoBehaviour
     {
         public int AmountOfAsteroids;
         public int AsteroidsToSpawn;
+        public uint RandomSeed;
         public GameObject[] SpawnableAsteroids;
 
         // VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -33,11 +25,14 @@ namespace SpaceShooter.DOTS
         public int AsteroidMaxHealth = 100;
         public int AsteroidMinHealth = 1;
 
-        public int AsteroidMaxSpeed = 10;
-        public int AsteroidMinSpeed = 1;
+        public float AsteroidMaxSpeed = 10;
+        public float AsteroidMinSpeed = 1;
 
-        public int AsteroidMinSize = 1;
-        public int AsteroidMaxSize = 5;
+        public float AsteroidMinSize = 0.1f;
+        public float AsteroidMaxSize = 1.0f;
+
+        public int AsteroidsPerWave;
+        public int AsteroidSpawnRate = 1;
 
         public int LifeTime = 10;
 
@@ -46,11 +41,7 @@ namespace SpaceShooter.DOTS
 
         void Start()
         {
-            AmountOfAsteroids = AsteroidsToSpawn;
-            // Get the EntityManager from the World
             EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-            // Initialize the asteroid baker with the EntityManager
             asteroidBaker = new AsteroidBaker();
         }
     }
@@ -59,10 +50,14 @@ namespace SpaceShooter.DOTS
     {
         public override void Bake(AsteroidManager authoring)
         {
+            // Set the stats to be random before initializing them in AddComponent
             Entity asteroidEntity = GetEntity(TransformUsageFlags.Dynamic);
-            int Speed = UnityEngine.Random.Range(authoring.AsteroidMinSpeed, authoring.AsteroidMaxSpeed);
-            int Size = UnityEngine.Random.Range(authoring.AsteroidMinSize, authoring.AsteroidMaxSize);
+            float Speed = UnityEngine.Random.Range(authoring.AsteroidMinSpeed, authoring.AsteroidMaxSpeed);
+            float Size = UnityEngine.Random.Range(authoring.AsteroidMinSize, authoring.AsteroidMaxSize);
             int LifeTime = authoring.LifeTime;
+            int WaveSize = authoring.AsteroidsPerWave;
+            int NumberOfAsteroids = authoring.AmountOfAsteroids;
+            int SpawnDelay = authoring.AsteroidSpawnRate;
 
             // Intialization of all asteroid entities that will be used, random stats are generated from the start
             // Each playthrough will have a different pool of asteroids that can appear
@@ -70,44 +65,24 @@ namespace SpaceShooter.DOTS
 
             AddComponent(asteroidEntity, new Asteroid
             {
-                TotalNumberOfAsteroids = 100,
+                TotalNumberOfAsteroids = NumberOfAsteroids,
                 AsteroidObject = GetEntity(authoring.AsteroidPrefab, TransformUsageFlags.Dynamic),
-                AsteroidHealth = Size * 3,
+                AsteroidHealth = (int)Size * 3,
+                AsteroidsPerWave = WaveSize,
                 AsteroidSpeed = Speed,
                 AsteroidLifeTime = LifeTime,
                 AsteroidSize = Size,
+                AsteroidSpawnDelay = SpawnDelay,
+                LocalTransform = LocalTransform.Identity
+                
             });
+            AddComponent(asteroidEntity, new RandomGenerator
+            {
+                value = Unity.Mathematics.Random.CreateFromIndex(authoring.RandomSeed)
+            });
+            AddComponent<SpawnTimer>(asteroidEntity);
+
         }
     }
-
-    //    public class AsteroidBaker : Baker<AsteroidManager>
-    //{
-    //    private EntityManager entityManager;
-
-    //    public AsteroidBaker(EntityManager entityManager)
-    //    {
-    //        this.entityManager = entityManager;
-    //    }
-
-    //    public override void Bake(AsteroidManager authoring)
-    //    {
-    //        int Speed = UnityEngine.Random.Range(authoring.AsteroidMinSpeed, authoring.AsteroidMaxSpeed);
-    //        int Size = UnityEngine.Random.Range(authoring.AsteroidMinSize, authoring.AsteroidMaxSize);
-    //        int LifeTime = authoring.LifeTime;
-
-    //        // Intialization of all asteroid entities that will be used, random stats are generated from the start
-    //        // Each playthrough will have a different pool of asteroids that can appear
-    //        // The extremities of these asteroids can be changed in the inspector
-    //        var asteroidEntity = entityManager.CreateEntity();
-
-    //        entityManager.AddComponentData(asteroidEntity, new Asteroid
-    //        {
-    //            AsteroidHealth = Size * 3,
-    //            AsteroidSpeed = Speed,
-    //            AsteroidLifeTime = LifeTime,
-    //            AsteroidSize = Size,
-    //            AsteroidObject = GetEntity(authoring.AsteroidPrefab, TransformUsageFlags.Dynamic)
-    //        });
-    //    }
 }
 
