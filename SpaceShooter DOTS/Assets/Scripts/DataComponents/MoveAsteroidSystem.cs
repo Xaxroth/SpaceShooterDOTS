@@ -17,14 +17,7 @@ namespace SpaceShooter.DOTS
         public void OnCreate(ref SystemState state)
         {
             state.Enabled = true;
-            //state.RequireForUpdate<Asteroid>();
-        }
-
-        // OnDestroy Function, what happens when this instance stops running.
-        [BurstCompile]
-        public void OnDestroy(ref SystemState state)
-        {
-
+            state.RequireForUpdate<Asteroid>();
         }
 
         // Runs automatically.
@@ -32,7 +25,6 @@ namespace SpaceShooter.DOTS
         public void OnUpdate(ref SystemState state)
         {
             var deltaTime = SystemAPI.Time.DeltaTime;
-            Debug.Log("Running Update Manually");
 
             new AsteroidMovementJob
             {
@@ -46,10 +38,9 @@ namespace SpaceShooter.DOTS
             public float DeltaTime;
 
             [BurstCompile]
-            private void Execute(AsteroidAspect Asteroid)
+            private void Execute(IndividualAsteroidAspect Asteroid)
             {
-                Debug.Log("Executing MoveAsteroid Job");
-                Asteroid.Move(DeltaTime, new Vector3(0,0,0));
+                Asteroid.Move(DeltaTime);
             }
         }
     }

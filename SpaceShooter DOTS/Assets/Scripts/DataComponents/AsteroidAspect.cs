@@ -9,6 +9,7 @@ using Unity.Collections;
 
 namespace SpaceShooter.DOTS
 {
+    // The "asteroid field" of the game. Handles operations related to spawning and defining the asteroids in the space.
     public readonly partial struct AsteroidAspect : IAspect
     {
         public readonly Entity AsteroidEntity;
@@ -17,7 +18,7 @@ namespace SpaceShooter.DOTS
         private readonly RefRW<RandomGenerator> _asteroidRandomSeed;
         private readonly RefRW<SpawnTimer> _spawnTimer;
 
-        private float GetRandomScale(float min) => _asteroidRandomSeed.ValueRW.value.NextFloat(min, 1f);
+        private float GetRandomScale(float size) => _asteroidRandomSeed.ValueRW.value.NextFloat();
 
         public bool ShouldSpawnAsteroid => SpawnTimer <= 0f;
         public Entity AsteroidPrefab => _asteroid.ValueRO.AsteroidObject;
@@ -44,7 +45,7 @@ namespace SpaceShooter.DOTS
 
         public float3 GetRandomPosition()
         {
-            float3 RandomPosition = _asteroidRandomSeed.ValueRW.value.NextFloat3(-10.0f, 10.0f);
+            float3 RandomPosition = _asteroidRandomSeed.ValueRW.value.NextFloat3(-25.0f, 25.0f);
             return RandomPosition;
         }
 
@@ -60,13 +61,6 @@ namespace SpaceShooter.DOTS
         {
             get => _localTransform.ValueRO.Position;
             set => _localTransform.ValueRW.Position = value;
-        }
-
-        // Moves the Asteroid through the MoveAsteroidSystem, requires a target position like the player, or the middle of the screen.
-        public void Move(float DeltaTime, float3 TargetPosition)
-        {
-            var moveDir = (TargetPosition - _localTransform.ValueRO.Position);
-            Position += moveDir * Speed * DeltaTime;
         }
     }
 }

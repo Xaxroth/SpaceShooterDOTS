@@ -304,8 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f918b7e25b340d4ca77cfe96075d6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmountOfAsteroids: 100
-  AsteroidsToSpawn: 100
+  AmountOfAsteroids: 10000
+  AsteroidsToSpawn: 10000
   RandomSeed: 0
   SpawnableAsteroids: []
   AsteroidPrefab: {fileID: 6991216694575067034, guid: ec191f88f5878a043b665159d2d9e4a6, type: 3}
@@ -314,7 +314,7 @@ MonoBehaviour:
   AsteroidMaxSpeed: 10
   AsteroidMinSpeed: 1
   AsteroidMinSize: 0.1
-  AsteroidMaxSize: 0.5
+  AsteroidMaxSize: 0.3
   AsteroidsPerWave: 25
   AsteroidSpawnRate: 1
   LifeTime: 10

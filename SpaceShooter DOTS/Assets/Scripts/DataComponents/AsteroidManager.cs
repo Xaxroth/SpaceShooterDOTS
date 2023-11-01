@@ -28,7 +28,7 @@ namespace SpaceShooter.DOTS
         public float AsteroidMaxSpeed = 10;
         public float AsteroidMinSpeed = 1;
 
-        public float AsteroidMinSize = 0.1f;
+        public float AsteroidMinSize = 0.2f;
         public float AsteroidMaxSize = 1.0f;
 
         public int AsteroidsPerWave;
@@ -58,6 +58,7 @@ namespace SpaceShooter.DOTS
             int WaveSize = authoring.AsteroidsPerWave;
             int NumberOfAsteroids = authoring.AmountOfAsteroids;
             int SpawnDelay = authoring.AsteroidSpawnRate;
+            authoring.RandomSeed = (uint)UnityEngine.Random.Range(authoring.AsteroidMinSize, authoring.AsteroidMaxSize);
 
             // Intialization of all asteroid entities that will be used, random stats are generated from the start
             // Each playthrough will have a different pool of asteroids that can appear
