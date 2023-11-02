@@ -386,6 +386,7 @@ MonoBehaviour:
   RandomSeed: 0
   SpawnableAsteroids: []
   AsteroidPrefab: {fileID: 6991216694575067034, guid: ec191f88f5878a043b665159d2d9e4a6, type: 3}
+  PlayerPrefab: {fileID: 0}
   AsteroidMaxHealth: 100
   AsteroidMinHealth: 1
   AsteroidMaxSpeed: 10

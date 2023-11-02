@@ -8,13 +8,7 @@ namespace SpaceShooter.DOTS
 {
 public class AsteroidMono : MonoBehaviour
 {
-    // The asteroid mono file, should handle asteroid stats
     public float AsteroidSpeed = 0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     public class AsteroidBaker : Baker<AsteroidMono>
     {

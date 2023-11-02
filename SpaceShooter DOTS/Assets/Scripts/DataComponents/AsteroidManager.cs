@@ -19,6 +19,7 @@ namespace SpaceShooter.DOTS
 
         // VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public GameObject AsteroidPrefab;
+        public GameObject PlayerPrefab;
         // VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public Entity AsteroidEntity;
 
@@ -52,6 +53,7 @@ namespace SpaceShooter.DOTS
         {
             // Set the stats to be random before initializing them in AddComponent
             Entity asteroidEntity = GetEntity(TransformUsageFlags.Dynamic);
+            Entity playerEntity = GetEntity(TransformUsageFlags.Dynamic);
             float Speed = UnityEngine.Random.Range(authoring.AsteroidMinSpeed, authoring.AsteroidMaxSpeed);
             float Size = UnityEngine.Random.Range(authoring.AsteroidMinSize, authoring.AsteroidMaxSize);
             int LifeTime = authoring.LifeTime;
