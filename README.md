@@ -11,5 +11,8 @@ While Unity's physics system was highlighted as very performant, I did not find 
 position between all projectiles and asteroids present in the scene, and checking whether or not the projectiles are close enough to the center of an asteroid, which would destroy it. This made my game much more performant, even from the UnityEditor,
 although it can be argued that it is more inaccurate and questionable to run such an operation in Update. However, with the optimized Unity.math libraries, my performance did not seem to suffer, despite me checking and comparing a large number of entities in OnUpdate().
 
+Since spawning entities in runtime tanked my performance somewhat, I decided on pooling and re-using all the entities that I initially spawn, which saved me alot of performance spikes when creating/destroying an object.
+![Not spawning](https://github.com/Xaxroth/SpaceShooterDOTS/assets/113028378/4157ad89-6da6-46bd-ac35-68718c5d5d57)
+
 Included in the "Releases" tab, a standalone .exe can be found through the .zip file.
 
