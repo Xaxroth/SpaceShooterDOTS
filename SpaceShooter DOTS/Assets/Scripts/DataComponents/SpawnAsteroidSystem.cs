@@ -16,7 +16,7 @@ namespace SpaceShooter.DOTS
     public partial struct SpawnAsteroid : ISystem
     {
         public EntityManager EntityManager { get; private set; }
-        // Runs when the game starts, sets up the spawn asteroid functionality and prepares it for the asteroid manager
+
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
@@ -24,13 +24,6 @@ namespace SpaceShooter.DOTS
             state.RequireForUpdate<Asteroid>();
         }
 
-        [BurstCompile]
-        public void OnDestroy(ref SystemState state)
-        {
-
-        }
-
-        // Runs automatically 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
@@ -41,24 +34,18 @@ namespace SpaceShooter.DOTS
             int AmountOfEntitiesSpawned = 0;
             var EntityCommandBuffer = new EntityCommandBuffer(Allocator.Temp);
 
-            //Entity[] AllAsteroids = new Entity[Asteroid.AsteroidsToSpawn];
-            //Entity[] CurrentWave = new Entity[Asteroid.AsteroidsPerWave];
-            Debug.Log("Update");
-
             for (int i = 0; i < Asteroid.AsteroidsToSpawn; i++)
             {
                 Entity asteroidEntity = EntityCommandBuffer.Instantiate(Asteroid.AsteroidPrefab);
 
                 AmountOfEntitiesSpawned++;
-
-                //AllAsteroids[i] = asteroidEntity;
-
                 var newTransform = Asteroid.GetRandomTransform();
 
                 EntityCommandBuffer.SetComponent(asteroidEntity, newTransform);
             }
 
-                EntityCommandBuffer.Playback(state.EntityManager);
+            EntityCommandBuffer.Playback(state.EntityManager);
+            EntityCommandBuffer.Dispose();
 
         }
     }

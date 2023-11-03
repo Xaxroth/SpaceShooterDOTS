@@ -18,10 +18,10 @@ public class PlayerProjectileMono : MonoBehaviour
             var projectileEntity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent(projectileEntity, new ProjectileComponent()
             {
-                ProjectileSpeed = 1,
+                ProjectileSpeed = authoring.ProjectileMovementSpeed,
                 ProjectileObject = GetEntity(authoring.ProjectilePrefab, TransformUsageFlags.Dynamic),
             });
-            AddComponent(projectileEntity, new FireProjectileTag(){ });
+            AddComponent<ProjectileTag>(projectileEntity);
         }
     }
 }

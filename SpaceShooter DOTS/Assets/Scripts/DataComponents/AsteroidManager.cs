@@ -15,12 +15,11 @@ namespace SpaceShooter.DOTS
         public int AmountOfAsteroids;
         public int AsteroidsToSpawn;
         public uint RandomSeed;
-        public GameObject[] SpawnableAsteroids;
 
-        // VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public GameObject[] SpawnableAsteroids;
         public GameObject AsteroidPrefab;
         public GameObject PlayerPrefab;
-        // VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         public Entity AsteroidEntity;
 
         public int AsteroidMaxHealth = 100;
@@ -84,6 +83,7 @@ namespace SpaceShooter.DOTS
                 value = Unity.Mathematics.Random.CreateFromIndex(authoring.RandomSeed)
             });
             AddComponent<SpawnTimer>(asteroidEntity);
+            AddComponent<AsteroidTag>(asteroidEntity);
 
         }
     }
