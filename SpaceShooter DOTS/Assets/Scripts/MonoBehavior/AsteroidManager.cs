@@ -4,9 +4,7 @@ using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
 using System;
-using UnityEditor.Build.Pipeline.Interfaces;
 using Unity.Transforms;
-using Unity.Entities.UniversalDelegates;
 
 namespace SpaceShooter.DOTS
 {
