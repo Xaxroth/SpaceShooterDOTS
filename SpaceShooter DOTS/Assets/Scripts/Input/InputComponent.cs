@@ -11,4 +11,6 @@ namespace SpaceShooter.DOTS
         public float2 Value;
     }
 
+    public struct FireProjectileTag : IComponentData, IEnableableComponent { }
+
 }

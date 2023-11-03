@@ -30,9 +30,9 @@ public class PlayerAuthoringBaker : Baker<PlayerAuthoring>
         });
         AddComponent(playerEntity, new ProjectileComponent
         {
-            AsteroidObject = GetEntity(authoring.ProjectilePrefab, TransformUsageFlags.Dynamic),
-            AsteroidSpeed = authoring.ProjectileSpeed
+            ProjectileObject = GetEntity(authoring.ProjectilePrefab, TransformUsageFlags.Dynamic),
         });
+        AddComponent(playerEntity, new FireProjectileTag { });
     }
 }
 

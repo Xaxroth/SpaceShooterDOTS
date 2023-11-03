@@ -14,10 +14,10 @@ namespace SpaceShooter.DOTS
         private Entity _player;
         protected override void OnCreate()
         {
-            _actions = new PlayerInputAction();
-
             RequireForUpdate<PlayerTag>();
             RequireForUpdate<InputComponent>();
+
+            _actions = new PlayerInputAction();
         }
         protected override void OnUpdate()
         {
@@ -27,12 +27,15 @@ namespace SpaceShooter.DOTS
 
         protected override void OnStartRunning()
         {
+            _actions.Player.Shoot.performed += Shoot;
             _actions.Enable();
             _player = SystemAPI.GetSingletonEntity<PlayerTag>();
         }
 
+
         protected override void OnStopRunning()
         {
+            _actions.Player.Shoot.performed -= Shoot;
             _actions.Disable();
             _player = Entity.Null;
         }
@@ -41,7 +44,7 @@ namespace SpaceShooter.DOTS
         {
             if (!SystemAPI.Exists(_player)) return;
 
-            SystemAPI.SetComponentEnabled<ProjectileComponent>(_player, true);
+            SystemAPI.SetComponentEnabled<FireProjectileTag>(_player, true);
         }
     }
 }

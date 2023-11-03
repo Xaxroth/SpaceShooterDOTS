@@ -7,9 +7,9 @@ using Unity.Mathematics;
 
 public struct ProjectileComponent : IComponentData
 {
-    public Entity AsteroidObject;
+    public Entity ProjectileObject;
 
     public LocalTransform LocalTransform;
 
-    public float AsteroidSpeed;
+    public float ProjectileSpeed;
 }

@@ -41,8 +41,8 @@ namespace SpaceShooter.DOTS
             int AmountOfEntitiesSpawned = 0;
             var EntityCommandBuffer = new EntityCommandBuffer(Allocator.Temp);
 
-            Entity[] AllAsteroids = new Entity[Asteroid.AsteroidsToSpawn];
-            Entity[] CurrentWave = new Entity[Asteroid.AsteroidsPerWave];
+            //Entity[] AllAsteroids = new Entity[Asteroid.AsteroidsToSpawn];
+            //Entity[] CurrentWave = new Entity[Asteroid.AsteroidsPerWave];
             Debug.Log("Update");
 
             for (int i = 0; i < Asteroid.AsteroidsToSpawn; i++)
@@ -51,7 +51,7 @@ namespace SpaceShooter.DOTS
 
                 AmountOfEntitiesSpawned++;
 
-                AllAsteroids[i] = asteroidEntity;
+                //AllAsteroids[i] = asteroidEntity;
 
                 var newTransform = Asteroid.GetRandomTransform();
 
