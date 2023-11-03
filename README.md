@@ -12,7 +12,14 @@ position between all projectiles and asteroids present in the scene, and checkin
 although it can be argued that it is more inaccurate and questionable to run such an operation in Update. However, with the optimized Unity.math libraries, my performance did not seem to suffer, despite me checking and comparing a large number of entities in OnUpdate().
 
 Since spawning entities in runtime tanked my performance somewhat, I decided on pooling and re-using all the entities that I initially spawn, which saved me alot of performance spikes when creating/destroying an object.
+
+Not spawning during runtime
 ![Not spawning](https://github.com/Xaxroth/SpaceShooterDOTS/assets/113028378/4157ad89-6da6-46bd-ac35-68718c5d5d57)
+
+Spawning/destroying during runtime
+![spawning](https://github.com/Xaxroth/SpaceShooterDOTS/assets/113028378/ff283b66-7b7b-4f70-abde-743511275959)
+
+By setting an entity's different components through my entity's aspect, I could simply modify the localtransform component of the asteroid, giving the illusion of new asteroids spawning whereas they were just being repositioned when they got hit, their processes/jobs still running as normal.
 
 Included in the "Releases" tab, a standalone .exe can be found through the .zip file.
 
