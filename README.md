@@ -12,5 +12,5 @@ position between all projectiles and asteroids present in the scene, and checkin
 although it can be argued that it is more inaccurate and questionable to run such an operation in Update. However, with the optimized Unity.math libraries, my performance did not seem to suffer, despite me checking and comparing a large number of entities in OnUpdate().
 
 
-
+Included in the "Releases" tab, a standalone .exe can be found through the .zip file.
 
